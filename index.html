@@ -1,1 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fast VPN Solutions — Secure Internet Oman & GCC</title>
+    <meta name="description" content="Fast VPN Solutions provides ultra-fast encrypted access in Oman & GCC.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        :root { --bg-dark: #0b1120; --card-bg: #1e293b; --primary-blue: #0284c7; --cyan-glow: #00f2fe; --text-main: #f8fafc; --text-sub: #cbd5e1; }
+        * { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+        body { background: var(--bg-dark); font-family: 'Inter', sans-serif; color: var(--text-main); display: flex; flex-direction: column; align-items: center; padding-bottom: 20px; }
+        .navbar { width: 100%; background: rgba(15, 23, 42, 0.95); border-bottom: 1px solid rgba(56, 189, 248, 0.3); padding: 10px 16px; display: flex; justify-content: space-between; align-items: center; position: sticky; top: 0; z-index: 1000; }
+        .nav-brand { display: flex; align-items: center; gap: 8px; text-decoration: none; color: #38bdf8; font-weight: 800; }
+        .menu-btn { background: #0284c7; color: #fff; border: 1px solid #38bdf8; padding: 5px 10px; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        .container { width: 100%; max-width: 480px; display: flex; flex-direction: column; gap: 12px; padding: 12px; }
+        .header-card { background: #1e293b; border: 1.5px solid var(--primary-blue); border-radius: 14px; padding: 14px; text-align: center; }
+        .header-card h1 { color: #38bdf8; font-size: 1.2rem; }
+        .header-card p { font-size: 0.78rem; color: var(--text-sub); margin: 4px 0; }
+        .btn-whatsapp { background: #0284c7; color: #fff; text-decoration: none; font-size: 0.75rem; font-weight: 700; padding: 6px 14px; border-radius: 8px; display: inline-block; border: 1px solid #38bdf8; margin-top: 4px; }
+        .products-grid { display: flex; flex-direction: column; gap: 10px; }
+        .card { background: var(--card-bg); border: 1px solid var(--primary-blue); border-radius: 12px; padding: 12px; }
+        .card-title { color: #38bdf8; font-size: 0.95rem; font-weight: 700; }
+        .card-price { color: var(--cyan-glow); font-size: 1.1rem; font-weight: 800; margin: 4px 0; }
+        .card-desc { font-size: 0.72rem; color: var(--text-sub); line-height: 1.3; margin-bottom: 10px; }
+        .card-actions { display: flex; gap: 6px; }
+        .btn-subscribe { flex: 2; background: linear-gradient(135deg, #2563eb 0%, #0284c7 100%); color: #fff; padding: 8px; border-radius: 6px; font-weight: 700; font-size: 0.8rem; text-decoration: none; text-align: center; }
+        .btn-card-share { flex: 1; background: #0f172a; border: 1px solid #38bdf8; color: var(--cyan-glow); padding: 8px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; text-decoration: none; text-align: center; }
+        .app-section, .social-share-section { background: #0f172a; border: 1px solid var(--primary-blue); border-radius: 12px; padding: 12px; text-align: center; }
+        .app-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 6px; }
+        .badge-item { background: #1e293b; border: 1px solid #0284c7; padding: 6px; border-radius: 6px; text-decoration: none; color: var(--cyan-glow); font-size: 0.7rem; font-weight: 700; }
+        .social-buttons { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-top: 6px; }
+        .btn-social { padding: 8px 4px; border-radius: 6px; font-size: 0.7rem; font-weight: 700; color: #fff; text-decoration: none; text-align: center; }
+        .btn-wa { background: #25d366; } .btn-fb { background: #1877f2; } .btn-insta { background: #bc1888; }
+        .footer { text-align: center; margin-top: 15px; border-top: 1px solid rgba(56, 189, 248, 0.3); padding-top: 12px; font-size: 0.72rem; color: #cbd5e1; }
+        .footer a { color: #00f2fe; text-decoration: underline; cursor: pointer; }
+        .drawer { position: fixed; top: 0; right: -100%; width: 260px; height: 100%; background: #0f172a; border-left: 2px solid #0284c7; z-index: 2000; transition: right 0.3s ease; padding: 20px; }
+        .drawer.open { right: 0; }
+        .drawer-menu { display: flex; flex-direction: column; gap: 10px; margin-top: 15px; }
+        .drawer-menu a { color: #fff; text-decoration: none; font-size: 0.8rem; padding: 8px; background: #1e293b; border-radius: 6px; border: 1px solid rgba(56, 189, 248, 0.2); cursor: pointer; }
+        .overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); z-index: 1500; display: none; }
+        .overlay.active { display: block; }
+        .modal { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); width: 90%; max-width: 420px; background: #1e293b; border: 1.5px solid #0284c7; border-radius: 12px; padding: 16px; z-index: 2500; display: none; }
+        .modal.active { display: block; }
+        .modal h2 { color: #38bdf8; font-size: 1rem; margin-bottom: 8px; }
+        .modal p { font-size: 0.72rem; color: var(--text-sub); line-height: 1.4; margin-bottom: 6px; }
+        .modal-btn { background: #0284c7; color: #fff; border: none; padding: 6px; border-radius: 6px; font-size: 0.75rem; margin-top: 10px; width: 100%; cursor: pointer; }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <a href="#" class="nav-brand">🛡️ Fast VPN Solutions</a>
+        <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+    </nav>
 
+    <div class="container">
+        <div class="header-card">
+            <h1>Fast VPN Solutions</h1>
+            <p>🌍 Tested & Working in Oman, KSA, UAE & 70+ Countries.</p>
+            <p>⚡ High-Speed 10Gbps | Bypasses Omantel, Ooredoo, du & Etisalat.</p>
+            <a href="https://wa.me/96872396139" target="_blank" class="btn-whatsapp">💬 WhatsApp Support (24/7)</a>
+        </div>
+
+        <div class="products-grid" id="productsGrid"></div>
+
+        <div class="app-section">
+            <h3 style="color:#38bdf8; font-size:0.85rem;">📲 Download Official PureVPN App:</h3>
+            <div class="app-badges" id="appBadgesGrid"></div>
+        </div>
+
+        <div class="social-share-section">
+            <h3 style="color:#38bdf8; font-size:0.85rem;">📢 Share Fast VPN Solutions:</h3>
+            <div class="social-buttons">
+                <a href="https://api.whatsapp.com/send?text=Check%20out%20Fast%20VPN%20Solutions:%20https://fastvpn.zepaycrypto.online/" target="_blank" class="btn-social btn-wa">💬 WhatsApp</a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=https://fastvpn.zepaycrypto.online/" target="_blank" class="btn-social btn-fb">📘 Facebook</a>
+                <a href="https://www.instagram.com/" target="_blank" class="btn-social btn-insta">📸 Instagram</a>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p style="color:#38bdf8; font-weight:bold;">💳 Accepted Payments: Cards & Crypto</p>
+            <p style="margin:4px 0;">📍 Muscat, Oman | 📩 support@fastvpn.zepaycrypto.online</p>
+            <p>📜 Policies: <a onclick="openModal('privacyModal')">Privacy</a> | <a onclick="openModal('termsModal')">Terms</a> | <a onclick="openModal('refundModal')">Refund</a></p>
+            <p style="font-size:0.65rem; color:#64748b; margin-top:6px;">© Fast VPN Solutions — Designed by Kamran Khan</p>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+    <div class="drawer" id="drawer">
+        <h3 style="color:#38bdf8; border-bottom:1px solid #38bdf8; padding-bottom:8px;">Menu</h3>
+        <div class="drawer-menu">
+            <a onclick="toggleMenu()">🏠 Home</a>
+            <a onclick="toggleMenu(); openModal('contactModal');">📩 Contact Support</a>
+            <a onclick="toggleMenu(); openModal('privacyModal');">📜 Privacy Policy</a>
+            <a onclick="toggleMenu(); openModal('termsModal');">📄 Terms & Conditions</a>
+            <a onclick="toggleMenu(); openModal('refundModal');">🔄 Refund Policy</a>
+        </div>
+    </div>
+
+    <div id="modalsContainer"></div>
+
+    <!-- External Modular Scripts -->
+    <script src="products.js"></script>
+    <script src="config.js"></script>
+    <script src="apps.js"></script>
+    <script src="modals.js"></script>
+
+    <script>
+        // Fallback Data for Local Chrome Browser Testing
+        const defaultProducts = [
+            { id:"1_month", title:"Fast VPN Solutions - 1 Month Pass", price:"$10.00", desc:"🌍 Fully Working in Oman, KSA, UAE & GCC!<br>• 30 Days Unlimited Ultra-Fast Access<br>• Bypasses Omantel & Ooredoo Restrictions" },
+            { id:"3_months", title:"Fast VPN Solutions - 3 Months Pass", price:"$28.00", desc:"🌍 Fully Working in Oman, KSA, UAE & GCC!<br>• 90 Days High-Speed Protection<br>• Optimized for WhatsApp Calling & Streaming" },
+            { id:"6_months", title:"Fast VPN Solutions - 6 Months Pass", price:"$45.00", desc:"🌍 Dedicated High-Speed Access for GCC!<br>• 180 Days Full Speed Access<br>• Automatic DNS Protection" },
+            { id:"1_year", title:"Fast VPN Solutions - 1 Year Pass", price:"$60.00", desc:"🌍 Ultimate Global Access Pass!<br>• 365 Days Unrestricted Freedom<br>• Ultra-Fast 10Gbps Infrastructure" },
+            { id:"2_years", title:"Fast VPN Solutions - 2 Years Pass", price:"$80.00", desc:"🌍 Long-Term Anonymity Pass!<br>• 730 Days Ultra-Fast Performance<br>• WireGuard & OpenVPN Support" },
+            { id:"3_years", title:"Fast VPN Solutions - 3 Years Pass", price:"$140.00", desc:"🌍 Lifetime Value Security Pass!<br>• 1095 Days Maximum Pass<br>• Unrestricted VoIP & Banking Access" }
+        ];
+
+        const defaultApps = [
+            { name: "🤖 Android App", url: "https://play.google.com/store/apps/details?id=com.purevpn.app" },
+            { name: "🍎 iPhone / iPad", url: "https://apps.apple.com/app/purevpn-fast-secure-vpn/id595286571" },
+            { name: "💻 Windows PC", url: "https://www.purevpn.com/download/windows-vpn" },
+            { name: "🍏 Mac / macOS", url: "https://www.purevpn.com/download/mac-vpn" }
+        ];
+
+        const defaultLinks = {
+            "1_month": "https://btcpay.zepaycrypto.online/apps/3SknXk9H5i4zGqU3y6qL1K/pos",
+            "3_months": "https://btcpay.zepaycrypto.online/apps/3SknXk9H5i4zGqU3y6qL1K/pos",
+            "6_months": "https://btcpay.zepaycrypto.online/apps/3SknXk9H5i4zGqU3y6qL1K/pos",
+            "1_year": "https://btcpay.zepaycrypto.online/apps/3SknXk9H5i4zGqU3y6qL1K/pos",
+            "2_years": "https://btcpay.zepaycrypto.online/apps/3SknXk9H5i4zGqU3y6qL1K/pos",
+            "3_years": "https://btcpay.zepaycrypto.online/apps/3SknXk9H5i4zGqU3y6qL1K/pos"
+        };
+
+        const defaultModals = {
+            "privacyModal": { title: "📜 Privacy Policy", content: "<p>Strict No-Logs Policy. We do not store or track your browsing activity.</p>" },
+            "termsModal": { title: "📄 Terms & Conditions", content: "<p>VPN usage is intended for lawful purposes as per subscription terms.</p>" },
+            "refundModal": { title: "🔄 Refund Policy", content: "<p>7-Day Money-Back Guarantee for technical issues on GCC networks.</p>" },
+            "contactModal": { title: "📩 Contact Us", content: "<p>📍 Al Amarat, Muscat, Oman<br>📩 support@fastvpn.zepaycrypto.online<br>💬 WhatsApp: +968 72396139</p>" }
+        };
+
+        function renderAll() {
+            const products = (typeof PRODUCTS_DATA !== 'undefined') ? PRODUCTS_DATA : defaultProducts;
+            const links = (typeof PAYMENT_LINKS !== 'undefined') ? PAYMENT_LINKS : defaultLinks;
+            const apps = (typeof APP_LINKS !== 'undefined') ? APP_LINKS : defaultApps;
+            const modals = (typeof MODALS_DATA !== 'undefined') ? MODALS_DATA : defaultModals;
+
+            const grid = document.getElementById("productsGrid");
+            if (grid) {
+                grid.innerHTML = "";
+                products.forEach(item => {
+                    const payLink = links[item.id] || "#";
+                    grid.innerHTML += `
+                        <div class="card">
+                            <div class="card-title">${item.title}</div>
+                            <div class="card-price">${item.price}</div>
+                            <div class="card-desc">${item.desc}</div>
+                            <div class="card-actions">
+                                <a href="${payLink}" class="btn-subscribe">Subscribe Now (${item.price})</a>
+                                <a href="https://api.whatsapp.com/send?text=Get%20${encodeURIComponent(item.title)}:%20https://fastvpn.zepaycrypto.online/" target="_blank" class="btn-card-share">🔗 Share</a>
+                            </div>
+                        </div>`;
+                });
+            }
+
+            const appGrid = document.getElementById("appBadgesGrid");
+            if (appGrid) {
+                appGrid.innerHTML = "";
+                apps.forEach(app => {
+                    appGrid.innerHTML += `<a href="${app.url}" target="_blank" class="badge-item">${app.name}</a>`;
+                });
+            }
+
+            const modalBox = document.getElementById("modalsContainer");
+            if (modalBox) {
+                modalBox.innerHTML = "";
+                Object.keys(modals).forEach(key => {
+                    const m = modals[key];
+                    modalBox.innerHTML += `
+                        <div class="modal" id="${key}">
+                            <h2>${m.title}</h2>
+                            <div>${m.content}</div>
+                            <button class="modal-btn" onclick="closeAll()">Close</button>
+                        </div>`;
+                });
+            }
+        }
+
+        window.onload = renderAll;
+        document.addEventListener("DOMContentLoaded", renderAll);
+
+        function toggleMenu() { document.getElementById('drawer').classList.toggle('open'); document.getElementById('overlay').classList.toggle('active'); }
+        function openModal(id) { closeAll(); const target = document.getElementById(id); if(target) target.classList.add('active'); document.getElementById('overlay').classList.add('active'); }
+        function closeAll() { document.getElementById('drawer').classList.remove('open'); document.getElementById('overlay').classList.remove('active'); document.querySelectorAll('.modal').forEach(m => m.classList.remove('active')); }
+    </script>
+</body>
+</html>
