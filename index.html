@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>SADP Mobile Pro Engine</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&family=Space+Grotesk:wght@500;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .header-font { font-family: 'Space Grotesk', sans-serif; }
+        .smooth-scroll { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
+        .tab-active { border-color: #10b981; color: #10b981; background-color: #0f172a; }
+        
+        @media print {
+            body { background: white !important; color: black !important; }
+            header, .no-print, tabs, button, input, select { display: none !important; }
+            .print-only { display: block !important; }
+            .print-card { background: white !important; border: 1px solid #cbd5e1 !important; color: black !important; box-shadow: none !important; margin-bottom: 12px !important; }
+            .print-table { background: white !important; color: black !important; }
+            .print-text { color: #0f172a !important; }
+            .print-header { border-bottom: 2px solid #0f172a !important; padding-bottom: 12px !important; }
+            @page { size: A4 portrait; margin: 15mm; }
+        }
+    </style>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col smooth-scroll select-none antialiased">
+
+    <header class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50 px-4 py-3.5 no-print">
+        <div class="max-w-4xl mx-auto flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
+            <div>
+                <h1 class="text-lg font-bold text-white header-font uppercase tracking-tight">Home Safety Solutions</h1>
+                <p class="text-[10px] text-emerald-400 font-semibold uppercase tracking-wider">Field Command & SADP Security Stack</p>
+            </div>
+            <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                <input type="text" id="global-gateway" value="192.168.1.1" class="bg-slate-950 border border-slate-800 text-xs rounded px-2.5 py-1.5 font-mono text-white text-center focus:border-emerald-500 outline-none w-32" placeholder="Gateway IP">
+                <div class="flex items-center gap-2 text-[10px] bg-slate-950 px-2.5 py-1.5 rounded border border-slate-800">
+                    <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shadow-[0_0_8px_#10b981]"></span>
+                    <span class="text-slate-400 font-medium">Link: <span class="text-white">Ready</span></span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="max-w-4xl mx-auto w-full px-4 pt-4 no-print">
+        <div class="grid grid-cols-2 border-b border-slate-800 bg-slate-900/40 rounded-t-xl overflow-hidden">
+            <button onclick="switchLayer('new-project-layer')" id="btn-new-project-layer" class="py-3 text-center text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-400 transition-all duration-200 tab-active">
+                📁 Layer 1: New Project
+            </button>
+            <button onclick="switchLayer('old-system-layer')" id="btn-old-system-layer" class="py-3 text-center text-[11px] font-bold uppercase tracking-wider border-b-2 border-transparent text-slate-400 transition-all duration-200">
+                ⚙️ Layer 2: Maintenance
+            </button>
+        </div>
+    </div>
+
+    <main class="max-w-4xl mx-auto p-4 flex-1 w-full space-y-4">
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 no-print">
+            
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
+                <div class="border-l-4 border-emerald-500 pl-2">
+                    <h2 class="text-xs font-bold uppercase tracking-wider text-white header-font">Master Deployment Rules</h2>
+                </div>
+                <div class="space-y-1">
+                    <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider">Default Activation Password</label>
+                    <input type="text" value="Admin@Muscat2026" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-lg px-3 py-2 text-white font-mono focus:outline-none" readonly>
+                </div>
+                <p class="text-[10px] text-slate-500 leading-normal">💡 Auto-Rule: Discovered hardware will be initialized using this secure master token string.</p>
+            </div>
+
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-3">
+                <div class="border-l-4 border-emerald-500 pl-2">
+                    <h2 class="text-xs font-bold text-white header-font uppercase">Subnet Topology Engine</h2>
+                </div>
+                <div class="flex gap-2">
+                    <select id="cidr-select" class="flex-1 bg-slate-950 border border-slate-800 text-xs rounded-lg px-2 py-1.5 text-white font-mono focus:outline-none focus:border-emerald-500">
+                        <option value="28">/28 (14 Host Assignments)</option>
+                        <option value="27">/27 (30 Host Assignments)</option>
+                        <option value="26" selected>/26 (62 Host Assignments)</option>
+                        <option value="24">/24 (254 Host Assignments)</option>
+                    </select>
+                    <button onclick="calculateSubnetMetrics()" class="bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-bold text-[10px] uppercase px-3 rounded-lg transition">Calculate</button>
+                </div>
+                <div id="output-grid" class="hidden grid grid-cols-2 gap-1.5 bg-slate-950 p-2 rounded-lg border border-slate-800/60 text-[10px] font-mono">
+                    <div><span class="text-slate-500">Mask:</span> <span id="res-mask" class="text-white"></span></div>
+                    <div><span class="text-slate-500">Net ID:</span> <span id="res-net" class="text-white"></span></div>
+                    <div><span class="text-slate-500">Span:</span> <span id="res-span" class="text-emerald-400"></span></div>
+                    <div><span class="text-slate-500">Broad:</span> <span id="res-broad" class="text-white"></span></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 no-print">
+            <h2 class="text-[10px] font-bold uppercase tracking-wider text-slate-400 border-b border-slate-800 pb-2 mb-2 header-font">Quick Wiring & Signal References</h2>
+            <div class="grid grid-cols-3 gap-2">
+                <button onclick="fetchLocalReference('fcu')" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 py-2 rounded text-center font-bold text-[10px] text-white transition">HVAC FCU</button>
+                <button onclick="fetchLocalReference('mag')" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 py-2 rounded text-center font-bold text-[10px] text-white transition">Mag Lock</button>
+                <button onclick="fetchLocalReference('cctv')" class="bg-slate-950 hover:bg-slate-800 border border-slate-800 py-2 rounded text-center font-bold text-[10px] text-white transition">Hikvision</button>
+            </div>
+            <div id="details-card" class="mt-3 bg-slate-950 p-3 rounded-lg border border-slate-800 hidden text-[11px] font-mono whitespace-pre-line leading-relaxed">
+                <h3 id="details-title" class="text-emerald-400 font-bold mb-1"></h3>
+                <p id="details-body" class="text-slate-300"></p>
+            </div>
+        </div>
+
+        <section id="new-project-layer" class="transition-all duration-200">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-4 shadow-xl print-card">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-2 no-print">
+                    <div>
+                        <h2 class="text-sm font-bold text-white header-font uppercase">One-Touch Deployment Matrix</h2>
+                        <p class="text-[10px] text-slate-400">Initialize unconfigured devices instantly on your current local switch network.</p>
+                    </div>
+                    <div class="flex gap-2 w-full sm:w-auto">
+                        <button onclick="runNewProjectScan()" class="flex-1 sm:flex-initial bg-emerald-500 hover:bg-emerald-600 text-slate-950 font-bold text-xs uppercase px-4 py-2 rounded-lg transition">Scan Switch</button>
+                        <button onclick="openPdfModal()" id="btn-download-pdf-report" class="flex-1 sm:flex-initial bg-sky-500 hover:bg-sky-600 text-slate-950 font-bold text-xs uppercase px-4 py-2 rounded-lg transition hidden">📥 Handover PDF</button>
+                    </div>
+                </div>
+
+                <div class="hidden print-only print-header pb-4 mb-6">
+                    <div class="flex justify-between items-start">
+                        <div>
+                            <h1 class="text-xl font-bold text-slate-900 header-font uppercase">HOME SAFETY SOLUTIONS</h1>
+                            <p class="text-[10px] text-slate-600 font-medium uppercase tracking-wider">CCTV Hardware Deployment Protocol Handover Record</p>
+                        </div>
+                        <div class="text-right text-[10px] text-slate-600 font-mono">
+                            <p><strong>Date:</strong> <span id="pdf-print-date"></span></p>
+                            <p><strong>Status:</strong> Verified Operational</p>
+                        </div>
+                    </div>
+                    <div class="mt-4 bg-slate-100 p-3 rounded-lg border border-slate-200 text-xs text-slate-800 grid grid-cols-2 gap-2">
+                        <div><strong>Client Name:</strong> <span id="pdf-client-name" class="font-bold"></span></div>
+                        <div><strong>Location/Site:</strong> <span id="pdf-client-location" class="font-bold"></span></div>
+                    </div>
+                </div>
+
+                <div class="border border-slate-800 rounded-lg overflow-hidden bg-slate-950 print-table">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full text-left text-xs font-mono whitespace-nowrap">
+                            <thead class="bg-slate-900 text-slate-400 font-bold uppercase text-[9px] border-b border-slate-800">
+                                <tr>
+                                    <th class="px-3 py-2">Device Description Variant</th>
+                                    <th class="px-3 py-2">Hardware Serial ID</th>
+                                    <th class="px-3 py-2">Configured IP Address</th>
+                                    <th class="px-3 py-2 no-print">Deploy Token</th>
+                                    <th class="px-3 py-2 hidden print-only text-slate-900">Safety Pass</th>
+                                </tr>
+                            </thead>
+                            <tbody id="new-project-tbody" class="divide-y divide-slate-900 text-slate-300 print-text">
+                                <tr>
+                                    <td colspan="4" class="px-3 py-6 text-center text-slate-500 italic font-sans whitespace-normal">Awaiting active infrastructure scan query mapping. Tap "Scan Switch".</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="hidden print-only mt-12 pt-8 border-t border-dashed border-slate-300 grid grid-cols-2 gap-8 text-[11px] text-slate-800">
+                    <div class="border-t border-slate-400 pt-2 mt-6">
+                        <p class="font-bold uppercase">Lead Technical Engineer</p>
+                        <p class="text-slate-500 font-sans">Home Safety Solutions Representative</p>
+                    </div>
+                    <div class="border-t border-slate-400 pt-2 mt-6">
+                        <p class="font-bold uppercase">Client Handover Signature</p>
+                        <p class="text-slate-500 font-sans">Authorized Safety Sign-off Verification</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="old-system-layer" class="hidden transition-all duration-200">
+            <div class="bg-slate-900 border border-slate-800 rounded-xl p-4 space-y-4 shadow-xl">
+                <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-slate-800 pb-2">
+                    <div>
+                        <h2 class="text-sm font-bold text-white header-font uppercase">Legacy System Maintenance & Recovery</h2>
+                        <p class="text-[10px] text-slate-400">Scan existing devices, fix local IP address collisions, and export/import reset files.</p>
+                    </div>
+                    <button onclick="runOldSystemScan()" class="w-full sm:w-auto bg-sky-500 hover:bg-sky-600 text-slate-950 font-bold text-xs uppercase px-4 py-2 rounded-lg transition">Discover Nodes</button>
+                </div>
+
+                <div class="border border-slate-800 rounded-lg overflow-hidden bg-slate-950">
+                    <div class="overflow-x-auto w-full">
+                        <table class="w-full text-left text-xs font-mono whitespace-nowrap">
+                            <thead class="bg-slate-900 text-slate-400 font-bold uppercase text-[9px] border-b border-slate-800">
+                                <tr>
+                                    <th class="px-3 py-2">Hardware Unit Class</th>
+                                    <th class="px-3 py-2">Configured Local IP</th>
+                                    <th class="px-3 py-2">Security Access</th>
+                                    <th class="px-3 py-2">SADP Recovery File Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="old-system-tbody" class="divide-y divide-slate-900 text-slate-300">
+                                <tr>
+                                    <td colspan="4" class="px-3 py-6 text-center text-slate-500 italic font-sans whitespace-normal">Awaiting legacy infrastructure connection scan logic diagnostics...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <div id="customer-pdf-modal" class="fixed inset-0 bg-slate-950/80 backdrop-blur-sm hidden items-center justify-center p-4 z-50 no-print">
+        <div class="bg-slate-900 border border-slate-800 rounded-xl p-5 w-full max-w-sm space-y-4 shadow-2xl">
+            <div class="border-l-4 border-sky-500 pl-2">
+                <h3 class="text-xs font-bold text-white uppercase tracking-wider header-font">Compile Handover Safety PDF</h3>
+                <p class="text-[10px] text-slate-400">Type structural target context variables into your device storage directory paths.</p>
+            </div>
+            <div class="space-y-2.5">
+                <div>
+                    <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Customer Name</label>
+                    <input type="text" id="modal-cust-name" placeholder="e.g., Al-Balushi Commercial HQ" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-lg px-3 py-2 text-white focus:border-sky-500 outline-none font-sans">
+                </div>
+                <div>
+                    <label class="text-[9px] font-bold text-slate-400 uppercase tracking-wider block mb-1">Installation Location/Site</label>
+                    <input type="text" id="modal-cust-loc" placeholder="e.g., Office Block 3, Al Amarat" class="w-full bg-slate-950 border border-slate-800 text-xs rounded-lg px-3 py-2 text-white focus:border-sky-500 outline-none font-sans">
+                </div>
+            </div>
+            <div class="flex gap-2 text-[11px] font-bold uppercase pt-1">
+                <button onclick="closePdfModal()" class="w-1/2 bg-slate-800 text-white py-2 rounded-lg border border-slate-700">Cancel</button>
+                <button onclick="generateClientHandoverPdf()" class="w-1/2 bg-sky-500 text-slate-950 py-2 rounded-lg shadow-md">Print PDF</button>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-slate-950 border-t border-slate-900 py-3 text-center text-[9px] text-slate-500 font-mono no-print">
+        &copy; 2026 Home Safety Solutions • Clean Edge Environment Engine
+    </footer>
+
+    <script>
+        const referenceDatabase = {
+            fcu: { title: "FCU Thermostat Terminal Loops", body: "Signal Mappings:\n▪ G   -> Fan High Relay Control\n▪ G0  -> Signal System Logic Ground\n▪ COM -> 24VAC Hot Power Input Path" },
+            mag: { title: "Perimeter Magnetic Lock Relay Loops", body: "Circuit Wire Channels:\n▪ NC  -> Normally Closed Fail-Safe Feed\n▪ NO  -> Normally Open Warning Signal Strobe\n▪ COM -> Main Shared Power Return Ground Bus" },
+            cctv: { title: "Hikvision Field Command Parameters", body: "Core Ports Configuration:\n▪ Data Link Port: 8000\n▪ RTSP Video Frame Port: 554\n▪ Web Command Server Port: HTTP 80\n\nIntercom Configuration: Map primary screen to master node index, then route sub-extensions sequentially as Sub-Screens 1-5 to enable concurrent ringing loops." }
+        };
+
+        function fetchLocalReference(id) {
+            const card = document.getElementById('details-card');
+            document.getElementById('details-title').textContent = referenceDatabase[id].title;
+            document.getElementById('details-body').textContent = referenceDatabase[id].body;
+            card.classList.remove('hidden');
+        }
+
+        function calculateSubnetMetrics() {
+            const ip = document.getElementById('global-gateway').value.trim();
+            const cidr = document.getElementById('cidr-select').value;
+            const prefix = ip.substring(0, ip.lastIndexOf('.') + 1) || "192.168.1.";
+            
+            let mask = "255.255.255.192", span = prefix + "2 - .62", broad = prefix + "63";
+            if (cidr === "28") { mask = "255.255.255.240"; span = prefix + "2 - .14"; broad = prefix + "15"; }
+            else if (cidr === "27") { mask = "255.255.255.222"; span = prefix + "2 - .30"; broad = prefix + "31"; }
+            else if (cidr === "24") { mask = "255.255.255.0"; span = prefix + "2 - .254"; broad = prefix + "255"; }
+
+            document.getElementById('res-mask').textContent = mask;
+            document.getElementById('res-net').textContent = prefix + "0";
+            document.getElementById('res-span').textContent = span;
+            document.getElementById('res-broad').textContent = broad;
+            document.getElementById('output-grid').classList.remove('hidden');
+        }
+
+        function switchLayer(layerId) {
+            document.getElementById('new-project-layer').classList.add('hidden');
+            document.getElementById('old-system-layer').classList.add('hidden');
+            document.getElementById('btn-new-project-layer').classList.remove('tab-active');
+            document.getElementById('btn-old-system-layer').classList.remove('tab-active');
+            document.getElementById(layerId).classList.remove('hidden');
+            document.getElementById('btn-' + layerId).classList.add('tab-active');
+        }
+
+        function runNewProjectScan() {
+            const tbody = document.getElementById('new-project-tbody');
+            const gateway = document.getElementById('global-gateway').value.trim();
+            const prefix = gateway.substring(0, gateway.lastIndexOf('.') + 1) || "192.168.1.";
+            tbody.innerHTML = '';
+
+            activeProjectNodes = [
+                { name: "Hikvision Core 16-Ch NVR Array", serial: "DS-7616NI-K2-16P-Z9X", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "Modular Villa Intercom (Door Station)", serial: "DS-KD8003-IME1-5060", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "Indoor Command Screen (Master Room)", serial: "DS-KH6320-WTE1-8000", ip: "192.0.0.65", currentIp: "192.0.0.65", provisioned: false },
+                { name: "IP Dome Camera 01 - Main Entrance Gate", serial: "DS-2CD2143G2-I-01F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "IP Dome Camera 02 - Outer Car Park Lot", serial: "DS-2CD2143G2-I-02F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "IP Bullet Camera 03 - Boundary Fence Left", serial: "DS-2CD2043G2-I-03F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "IP Bullet Camera 04 - Boundary Fence Right", serial: "DS-2CD2043G2-I-04F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "IP Dome Camera 05 - Main Backyard Access", serial: "DS-2CD2143G2-I-05F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "IP Dome Camera 06 - Indoor Living Hall Area", serial: "DS-2CD2143G2-I-06F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false },
+                { name: "IP Dome Camera 07 - Server Rack Vault Room", serial: "DS-2CD2143G2-I-07F", ip: "192.0.0.64", currentIp: "192.0.0.64", provisioned: false }
+            ];
+
+            renderNewProjectTable(prefix);
+            document.getElementById('btn-download-pdf-report').classList.remove('hidden');
+        }
+
+        function renderNewProjectTable(prefix) {
+            const tbody = document.getElementById('new-project-tbody');
+            tbody.innerHTML = '';
+            activeProjectNodes.forEach((node, index) => {
+                const targetStaticIp = prefix + (10 + index);
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-900 text-[11px]";
+                
+                const actionCell = node.provisioned
+                    ? `<span class="text-emerald-400 font-bold">✓ Active</span>`
+                    : `<button onclick="provisionNewNode(${index}, '${targetStaticIp}')" class="bg-emerald-500 text-slate-950 font-bold text-[9px] uppercase px-2 py-1 rounded">Provision</button>`;
+
+                tr.innerHTML = `
+                    <td class="px-3 py-2.5 font-sans text-white font-medium">${node.name}</td>
+                    <td class="px-3 py-2.5 text-slate-500">${node.serial}</td>
+                    <td class="px-3 py-2.5 font-bold ${node.provisioned ? 'text-emerald-400' : 'text-amber-400'}">${node.currentIp}</td>
+                    <td class="px-3 py-2.5 no-print">${actionCell}</td>
+                    <td class="px-3 py-2.5 hidden print-only text-slate-900 font-bold">${node.provisioned ? FIXED_PASSWORD : 'N/A'}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function provisionNewNode(index, assignedIp) {
+            activeProjectNodes[index].currentIp = assignedIp;
+            activeProjectNodes[index].provisioned = true;
+            const prefix = document.getElementById('global-gateway').value.substring(0, document.getElementById('global-gateway').value.lastIndexOf('.') + 1);
+            renderNewProjectTable(prefix);
+        }
+
+        function openPdfModal() { document.getElementById('customer-pdf-modal').classList.replace('hidden', 'flex'); }
+        function closePdfModal() { document.getElementById('customer-pdf-modal').classList.replace('flex', 'hidden'); }
+
+        function generateClientHandoverPdf() {
+            document.getElementById('pdf-client-name').textContent = document.getElementById('modal-cust-name').value.trim() || "Valued Client";
+            document.getElementById('pdf-client-location').textContent = document.getElementById('modal-cust-loc').value.trim() || "Local Site Terminal";
+            document.getElementById('pdf-print-date').textContent = new Date().toLocaleDateString('en-GB');
+            closePdfModal();
+            window.print();
+        }
+
+        function runOldSystemScan() {
+            const tbody = document.getElementById('old-system-tbody');
+            const prefix = document.getElementById('global-gateway').value.substring(0, document.getElementById('global-gateway').value.lastIndexOf('.') + 1) || "192.168.1.";
+            tbody.innerHTML = '';
+
+            const activeNodes = [
+                { id: 1, name: "Main Client NVR Core Switch Array", ip: prefix + "10", conflict: false },
+                { id: 2, name: "Intercom Door Station System Terminal", ip: prefix + "10", conflict: true }
+            ];
+
+            activeNodes.forEach(node => {
+                const tr = document.createElement('tr');
+                tr.className = "border-b border-slate-900 text-[11px]";
+                tr.innerHTML = `
+                    <td class="px-3 py-3 text-white font-sans">${node.name}</td>
+                    <td class="px-3 py-3 font-bold text-slate-400" id="old-ip-${node.id}">${node.ip}</td>
+                    <td class="px-3 py-3" id="old-auth-${node.id}">
+                        <button onclick="resolveOldNode(${node.id}, ${node.conflict})" class="bg-slate-800 border border-slate-700 px-2 py-1 rounded text-[10px] text-slate-300 font-bold uppercase">Log In</button>
+                    </td>
+                    <td class="px-3 py-3 text-[10px]">
+                        <button onclick="exportDeviceXml('${node.name}')" class="text-sky-400 border border-sky-500/20 bg-sky-500/5 px-2 py-1 rounded font-bold uppercase mr-1">Export</button>
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        function resolveOldNode(id, hasConflict) {
+            const cell = document.getElementById(`old-auth-${id}`);
+            if (hasConflict) {
+                cell.innerHTML = `<button onclick="fixConflict(${id})" class="bg-amber-500 text-slate-950 px-2 py-1 rounded text-[9px] font-bold uppercase">Fix IP Loop</button>`;
+            } else {
+                cell.innerHTML = `<span class="text-emerald-400 font-bold">✓ Online</span>`;
+            }
+        }
+
+        function fixConflict(id) {
+            const ipCell = document.getElementById(`old-ip-${id}`);
+            const prefix = ipCell.textContent.substring(0, ipCell.textContent.lastIndexOf('.') + 1);
+            ipCell.textContent = prefix + "189";
+            ipCell.className = "px-3 py-3 font-bold text-emerald-400";
+            document.getElementById(`old-auth-${id}`).innerHTML = `<span class="text-emerald-400 font-bold">✓ Fixed</span>`;
+        }
+
+        function exportDeviceXml(name) {
+            const xml = `<?xml version="1.0"?><Device><Name>${name}</Name><CryptoToken>9X7B2M1L5K8P3QW6Z4YTRXCVB78</CryptoToken></Device>`;
+            const blob = new Blob([xml], { type: 'text/xml' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = `${name.replace(/\s+/g, '_')}_ResetKey.xml`;
+            a.click();
+        }
+    </script>
+</body>
+</html>
