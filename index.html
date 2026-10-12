@@ -3,13 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Fast VPN Solutions — Fast, Secure & Unlimited VPN</title>
+  <title>Fast VPN Solutions — Official Store</title>
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       background-color: #060b19;
       color: #e2e8f0;
@@ -18,7 +14,7 @@
       overflow-x: hidden;
     }
 
-    /* --- Top Navbar --- */
+    /* Top Navbar */
     .navbar {
       display: flex;
       justify-content: space-between;
@@ -30,237 +26,68 @@
       box-shadow: 0 0 12px rgba(30, 58, 138, 0.5);
       margin-bottom: 15px;
     }
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-weight: bold;
-      font-size: 18px;
-      color: #38bdf8;
-      text-shadow: 0 0 8px rgba(56, 189, 248, 0.4);
-    }
+    .brand { font-weight: bold; font-size: 18px; color: #38bdf8; text-shadow: 0 0 8px rgba(56, 189, 248, 0.4); }
     .menu-btn {
-      background: #0284c7;
-      color: #ffffff;
-      border: none;
-      padding: 8px 16px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 14px;
-      cursor: pointer;
-      box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
-      transition: all 0.2s ease;
+      background: #0284c7; color: #fff; border: none; padding: 8px 16px; border-radius: 6px;
+      font-weight: bold; font-size: 14px; cursor: pointer; box-shadow: 0 0 10px rgba(2, 132, 199, 0.6);
     }
 
-    /* --- Slide-in Sidebar Menu --- */
-    .sidebar-overlay {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      background: rgba(0, 0, 0, 0.6);
-      display: none;
-      z-index: 998;
-    }
+    /* Sidebar Overlay & Menu */
+    .sidebar-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); display: none; z-index: 998; }
     .sidebar {
-      position: fixed;
-      top: 0;
-      right: -280px;
-      width: 260px;
-      height: 100vh;
-      background: #0b132a;
-      border-left: 2px solid #38bdf8;
-      box-shadow: -5px 0 20px rgba(56, 189, 248, 0.3);
-      padding: 20px 15px;
-      z-index: 999;
-      transition: right 0.3s ease;
+      position: fixed; top: 0; right: -280px; width: 260px; height: 100vh; background: #0b132a;
+      border-left: 2px solid #38bdf8; box-shadow: -5px 0 20px rgba(56, 189, 248, 0.3); padding: 20px 15px; z-index: 999; transition: right 0.3s ease;
     }
-    .sidebar.active {
-      right: 0;
-    }
-    .sidebar-overlay.active {
-      display: block;
-    }
-    .sidebar-title {
-      font-size: 22px;
-      font-weight: bold;
-      color: #38bdf8;
-      margin-bottom: 20px;
-      padding-bottom: 10px;
-      border-bottom: 1px solid #1e293b;
-    }
+    .sidebar.active { right: 0; }
+    .sidebar-overlay.active { display: block; }
+    .sidebar-title { font-size: 22px; font-weight: bold; color: #38bdf8; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 1px solid #1e293b; }
     .sidebar-item {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      background: #111c38;
-      border: 1px solid #1e3a8a;
-      color: #e2e8f0;
-      text-decoration: none;
-      padding: 12px 14px;
-      border-radius: 8px;
-      margin-bottom: 12px;
-      font-size: 14px;
-      font-weight: 500;
+      display: flex; align-items: center; gap: 10px; background: #111c38; border: 1px solid #1e3a8a;
+      color: #e2e8f0; text-decoration: none; padding: 12px 14px; border-radius: 8px; margin-bottom: 12px; font-size: 14px; cursor: pointer;
     }
-    .sidebar-item:hover {
-      border-color: #38bdf8;
-      box-shadow: 0 0 10px rgba(56, 189, 248, 0.4);
-    }
+    .sidebar-item:hover { border-color: #38bdf8; box-shadow: 0 0 10px rgba(56, 189, 248, 0.4); }
 
-    /* --- Glowing Cards & Sections --- */
-    .card {
-      background: #0b1329;
-      border: 1px solid #1d3557;
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 15px;
-      box-shadow: 0 0 10px rgba(15, 23, 42, 0.8);
-    }
-    .card-title {
-      font-size: 18px;
-      font-weight: bold;
-      color: #38bdf8;
-      margin-bottom: 6px;
-    }
-    .price {
-      font-size: 26px;
-      font-weight: 800;
-      color: #22d3ee;
-      margin-bottom: 10px;
-    }
-    .card-list {
-      list-style: none;
-      margin-bottom: 15px;
-      font-size: 13px;
-      color: #cbd5e1;
-    }
-    .card-list li {
-      margin-bottom: 6px;
-      line-height: 1.4;
-    }
+    /* Glowing Cards */
+    .card { background: #0b1329; border: 1px solid #1d3557; border-radius: 12px; padding: 16px; margin-bottom: 15px; box-shadow: 0 0 10px rgba(15, 23, 42, 0.8); }
+    .card-title { font-size: 18px; font-weight: bold; color: #38bdf8; margin-bottom: 6px; }
+    .price { font-size: 26px; font-weight: 800; color: #22d3ee; margin-bottom: 10px; }
+    .card-list { list-style: none; margin-bottom: 15px; font-size: 13px; color: #cbd5e1; }
+    .card-list li { margin-bottom: 6px; line-height: 1.4; }
 
-    /* --- Buttons with Glow --- */
-    .btn-group {
-      display: flex;
-      gap: 8px;
-    }
+    /* Buttons */
+    .btn-group { display: flex; gap: 8px; }
     .btn-main {
-      flex: 2;
-      background: #2563eb;
-      color: white;
-      border: none;
-      padding: 11px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 13px;
-      cursor: pointer;
-      box-shadow: 0 0 12px rgba(37, 99, 235, 0.5);
-      text-decoration: none;
-      text-align: center;
-      display: inline-block;
+      flex: 2; background: #2563eb; color: white; border: none; padding: 11px; border-radius: 6px;
+      font-weight: bold; font-size: 13px; cursor: pointer; box-shadow: 0 0 12px rgba(37, 99, 235, 0.5); text-decoration: none; text-align: center;
     }
     .btn-share {
-      flex: 1;
-      background: transparent;
-      border: 1px solid #38bdf8;
-      color: #38bdf8;
-      padding: 11px;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 13px;
-      cursor: pointer;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
+      flex: 1; background: transparent; border: 1px solid #38bdf8; color: #38bdf8; padding: 11px;
+      border-radius: 6px; font-weight: bold; font-size: 13px; cursor: pointer; text-align: center; text-decoration: none;
     }
 
-    /* --- Apps Section --- */
-    .app-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 8px;
-      margin-top: 10px;
-    }
-    .app-btn {
-      background: #111c38;
-      border: 1px solid #1e3a8a;
-      color: #38bdf8;
-      padding: 8px;
-      border-radius: 6px;
-      text-align: center;
-      text-decoration: none;
-      font-size: 12px;
-      font-weight: 500;
-    }
+    /* Apps & Social */
+    .app-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px; }
+    .app-btn { background: #111c38; border: 1px solid #1e3a8a; color: #38bdf8; padding: 8px; border-radius: 6px; text-align: center; text-decoration: none; font-size: 12px; }
+    .social-section { background: #0b1329; border: 1px solid #1d3557; border-radius: 12px; padding: 14px; margin-bottom: 15px; text-align: center; }
+    .social-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+    .social-btn { padding: 8px; border-radius: 6px; color: white; font-weight: bold; font-size: 12px; text-decoration: none; }
+    .bg-wa { background: #22c55e; } .bg-fb { background: #2563eb; } .bg-insta { background: #d946ef; }
 
-    /* --- Social Share Block --- */
-    .social-section {
-      background: #0b1329;
-      border: 1px solid #1d3557;
-      border-radius: 12px;
-      padding: 14px;
-      margin-bottom: 15px;
-      text-align: center;
+    /* Modals for Policy Pages */
+    .modal {
+      display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      background: rgba(0,0,0,0.8); z-index: 1000; justify-content: center; align-items: center; padding: 15px;
     }
-    .social-title {
-      font-size: 14px;
-      font-weight: bold;
-      color: #38bdf8;
-      margin-bottom: 12px;
+    .modal-content {
+      background: #0b132a; border: 1px solid #38bdf8; border-radius: 12px; padding: 20px;
+      max-width: 500px; width: 100%; max-height: 80vh; overflow-y: auto; box-shadow: 0 0 20px rgba(56, 189, 248, 0.4);
     }
-    .social-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 8px;
-    }
-    .social-btn {
-      padding: 8px;
-      border-radius: 6px;
-      color: white;
-      font-weight: bold;
-      font-size: 12px;
-      text-decoration: none;
-      display: block;
-    }
-    .bg-wa { background: #22c55e; }
-    .bg-fb { background: #2563eb; }
-    .bg-insta { background: #d946ef; }
+    .modal-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid #1e293b; padding-bottom: 8px; }
+    .modal-title { font-size: 18px; color: #38bdf8; font-weight: bold; }
+    .close-btn { background: transparent; border: none; color: #e2e8f0; font-size: 20px; cursor: pointer; }
 
-    /* --- Gateway Compliance Badges --- */
-    .compliance-box {
-      background: #091226;
-      border: 1px dashed #1e3a8a;
-      border-radius: 8px;
-      padding: 10px;
-      text-align: center;
-      margin-top: 10px;
-      font-size: 11px;
-      color: #94a3b8;
-    }
-    .payment-icons {
-      display: flex;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 6px;
-      font-size: 18px;
-    }
-
-    /* --- Footer --- */
-    footer {
-      text-align: center;
-      padding: 15px 5px;
-      font-size: 12px;
-      color: #94a3b8;
-      border-top: 1px solid rgba(255, 255, 255, 0.05);
-      margin-top: 10px;
-    }
-    footer a {
-      color: #38bdf8;
-      text-decoration: none;
-      margin: 0 4px;
-    }
+    footer { text-align: center; padding: 15px 5px; font-size: 12px; color: #94a3b8; border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; }
+    footer a { color: #38bdf8; text-decoration: none; cursor: pointer; margin: 0 4px; }
   </style>
 </head>
 <body>
@@ -271,20 +98,20 @@
     <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
   </div>
 
-  <!-- Sidebar Overlay -->
   <div class="sidebar-overlay" id="overlay" onclick="toggleMenu()"></div>
 
-  <!-- Slide-out Sidebar -->
+  <!-- Sidebar -->
   <div class="sidebar" id="sidebar">
     <div class="sidebar-title">Menu</div>
-    <a href="/" class="sidebar-item">🏠 Home</a>
-    <a href="/contact.html" class="sidebar-item">✉️ Contact Support</a>
-    <a href="/privacy.html" class="sidebar-item">📜 Privacy Policy</a>
-    <a href="/terms.html" class="sidebar-item">📄 Terms & Conditions</a>
-    <a href="/refund.html" class="sidebar-item">🔄 Refund Policy</a>
+    <div class="sidebar-item" onclick="toggleMenu()">🏠 Home</div>
+    <div class="sidebar-item" onclick="openModal('contactModal')">✉️ Contact Support</div>
+    <div class="sidebar-item" onclick="openModal('privacyModal')">📜 Privacy Policy</div>
+    <div class="sidebar-item" onclick="openModal('termsModal')">📄 Terms & Conditions</div>
+    <div class="sidebar-item" onclick="openModal('refundModal')">🔄 Refund Policy</div>
   </div>
 
-  <!-- 1 Month Pass Card -->
+  <!-- All 6 Packages -->
+  <!-- 1 Month -->
   <div class="card">
     <div class="card-title">Fast VPN Solutions - 1 Month Pass</div>
     <div class="price">$10.00</div>
@@ -292,15 +119,79 @@
       <li>🌏 Fully Working in Oman, KSA, UAE, Qatar & 70+ Countries!</li>
       <li>• 30 Days Unlimited Ultra-Fast & Encrypted Access</li>
       <li>• Stealth Protocol: Bypasses Omantel, Ooredoo Restrictions</li>
-      <li>• Instant Automated Email Delivery (5-15 mins)</li>
+      <li>• Instant Email Activation</li>
     </ul>
     <div class="btn-group">
-      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">⚡ Pay via Crypto ($10.00)</a>
+      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">Subscribe Now ($10.00)</a>
       <a href="#" class="btn-share">🔗 Share</a>
     </div>
   </div>
 
-  <!-- 3 Years Pass Card -->
+  <!-- 3 Months -->
+  <div class="card">
+    <div class="card-title">Fast VPN Solutions - 3 Months Pass</div>
+    <div class="price">$28.00</div>
+    <ul class="card-list">
+      <li>🌏 Fully Working in Oman, KSA, UAE, Qatar & 70+ Countries!</li>
+      <li>• 90 Days High-Speed Protection & Military-Grade Encryption</li>
+      <li>• Optimized for WhatsApp Calling, Streaming & Financial Apps</li>
+      <li>• Instant Email Activation</li>
+    </ul>
+    <div class="btn-group">
+      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">Subscribe Now ($28.00)</a>
+      <a href="#" class="btn-share">🔗 Share</a>
+    </div>
+  </div>
+
+  <!-- 6 Months -->
+  <div class="card">
+    <div class="card-title">Fast VPN Solutions - 6 Months Pass</div>
+    <div class="price">$50.00</div>
+    <ul class="card-list">
+      <li>🌏 Premium Half-Year Protection Pass!</li>
+      <li>• 180 Days High-Speed Unlimited Bandwidth & Zero Logs</li>
+      <li>• Supports 5 Concurrent Device Connections</li>
+      <li>• Instant Email Activation</li>
+    </ul>
+    <div class="btn-group">
+      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">Subscribe Now ($50.00)</a>
+      <a href="#" class="btn-share">🔗 Share</a>
+    </div>
+  </div>
+
+  <!-- 1 Year -->
+  <div class="card">
+    <div class="card-title">Fast VPN Solutions - 1 Year Pass</div>
+    <div class="price">$80.00</div>
+    <ul class="card-list">
+      <li>🌏 Annual High-Performance Membership Pass!</li>
+      <li>• 365 Days Unlimited Access & WireGuard Protocol</li>
+      <li>• Optimized High-Speed Calling & Ultra HD Streaming</li>
+      <li>• Instant Email Activation</li>
+    </ul>
+    <div class="btn-group">
+      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">Subscribe Now ($80.00)</a>
+      <a href="#" class="btn-share">🔗 Share</a>
+    </div>
+  </div>
+
+  <!-- 2 Years -->
+  <div class="card">
+    <div class="card-title">Fast VPN Solutions - 2 Years Pass</div>
+    <div class="price">$110.00</div>
+    <ul class="card-list">
+      <li>🌏 Best Value Multi-Year Pass!</li>
+      <li>• 730 Days Maximum Security Pass for Individuals & Families</li>
+      <li>• Unrestricted VoIP, Media & Banking Access</li>
+      <li>• Instant Email Activation</li>
+    </ul>
+    <div class="btn-group">
+      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">Subscribe Now ($110.00)</a>
+      <a href="#" class="btn-share">🔗 Share</a>
+    </div>
+  </div>
+
+  <!-- 3 Years -->
   <div class="card">
     <div class="card-title">Fast VPN Solutions - 3 Years Pass</div>
     <div class="price">$140.00</div>
@@ -308,15 +199,15 @@
       <li>🌏 Lifetime Value Security Pass — Full Global Coverage!</li>
       <li>• 1095 Days Maximum Security Pass for Individuals & Families</li>
       <li>• Unrestricted VoIP, Media & Financial Services Access</li>
-      <li>• Instant Automated Email Delivery (5-15 mins)</li>
+      <li>• Fully Automated Instant Email Activation</li>
     </ul>
     <div class="btn-group">
-      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">⚡ Pay via Crypto ($140.00)</a>
+      <a href="https://btcpay.zepaycrypto.online/api/v1/invoices" class="btn-main">Subscribe Now ($140.00)</a>
       <a href="#" class="btn-share">🔗 Share</a>
     </div>
   </div>
 
-  <!-- Official Apps Download Card -->
+  <!-- Official Apps -->
   <div class="card" style="text-align: center;">
     <div style="color: #38bdf8; font-weight: bold; margin-bottom: 8px;">📲 Download Official PureVPN App:</div>
     <div class="app-grid">
@@ -327,7 +218,7 @@
     </div>
   </div>
 
-  <!-- Social Share Section -->
+  <!-- Social Share -->
   <div class="social-section">
     <div class="social-title">📢 Share Fast VPN Solutions:</div>
     <div class="social-grid">
@@ -337,29 +228,36 @@
     </div>
   </div>
 
-  <!-- Footer & Merchant Compliance Info -->
+  <!-- Footer -->
   <footer>
-    <div class="compliance-box">
-      <p>💳 Accepted Payment Methods:</p>
-      <div class="payment-icons">
-        💳 Credit / Debit Cards | ₿ Bitcoin (BTC) | ⚡ Lightning Network
-      </div>
-      <p style="margin-top: 6px; font-size: 10px;">⚡ Instant Digital Product Delivery via Email within 5–15 Minutes</p>
-    </div>
-
-    <p style="margin-top: 12px; margin-bottom: 6px;">
-      📍 Al Amarat, Muscat, Oman | 📞 +968 7239 6139 | ✉️ support@fastvpn.zepaycrypto.online
+    <p>💳 Accepted Payments: Credit / Debit Cards & Crypto (BTC)</p>
+    <p style="margin-top: 6px;">📍 Al Amarat, Muscat, Oman | ✉️ support@fastvpn.zepaycrypto.online</p>
+    <p style="margin-top: 6px;">
+      📜 Policies: <a onclick="openModal('privacyModal')">Privacy</a> | <a onclick="openModal('termsModal')">Terms</a> | <a onclick="openModal('refundModal')">Refund</a>
     </p>
-    <p style="margin-bottom: 6px;">
-      📜 Policies: <a href="/privacy.html">Privacy Policy</a> | <a href="/terms.html">Terms of Service</a> | <a href="/refund.html">Refund Policy</a> | <a href="/contact.html">Contact Us</a>
-    </p>
-    <p style="font-size: 11px; color: #64748b;">© Fast VPN Solutions — Designed by Kamran Khan</p>
+    <p style="font-size: 11px; color: #64748b; margin-top: 6px;">© Fast VPN Solutions — Designed by Kamran Khan</p>
   </footer>
+
+  <!-- Modals (Policy Popups) -->
+  <div class="modal" id="privacyModal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Privacy Policy</div><button class="close-btn" onclick="closeModal('privacyModal')">✖</button></div><p style="font-size: 13px; line-height: 1.6;">We strictly adhere to a zero-logs policy. Your browsing activity, IP addresses, and personal traffic logs are never recorded or shared.</p></div></div>
+
+  <div class="modal" id="termsModal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Terms & Conditions</div><button class="close-btn" onclick="closeModal('termsModal')">✖</button></div><p style="font-size: 13px; line-height: 1.6;">By purchasing our services, you agree to use Fast VPN Solutions for lawful digital privacy purposes only.</p></div></div>
+
+  <div class="modal" id="refundModal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Refund Policy</div><button class="close-btn" onclick="closeModal('refundModal')">✖</button></div><p style="font-size: 13px; line-height: 1.6;">We offer a 7-day money-back guarantee if our service fails to connect or work on your device.</p></div></div>
+
+  <div class="modal" id="contactModal"><div class="modal-content"><div class="modal-header"><div class="modal-title">Contact Support</div><button class="close-btn" onclick="closeModal('contactModal')">✖</button></div><p style="font-size: 13px; line-height: 1.6;">✉️ Email: support@fastvpn.zepaycrypto.online<br>📞 WhatsApp: +968 7239 6139<br>📍 Location: Muscat, Oman</p></div></div>
 
   <script>
     function toggleMenu() {
       document.getElementById('sidebar').classList.toggle('active');
       document.getElementById('overlay').classList.toggle('active');
+    }
+    function openModal(id) {
+      document.getElementById(id).style.display = 'flex';
+      toggleMenu();
+    }
+    function closeModal(id) {
+      document.getElementById(id).style.display = 'none';
     }
   </script>
 
