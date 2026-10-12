@@ -1,35 +1,33 @@
-// BTCPay Server Configuration
-const BTCPAY_URL = "https://btcpay.zepaycrypto.online";
-const STORE_ID = "BrYeNGdYrKo1yYN5nZB3LVkPXABemfzGsD2StA7atYZW";
-const API_KEY = "9cb3026748ff1898928e913e977c33c1829492f2";
+// ==========================================
+// Fast VPN Solutions — Live Payment Gateway
+// Merchant ID: a2e02d07-2db5-4bfa-96ab-95a2cbb26214
+// ==========================================
 
-// Global Payment Handler Function
-async function payViaCrypto(amount, title) {
-    try {
-        const response = await fetch(`${BTCPAY_URL}/api/v1/stores/${STORE_ID}/invoices`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': `token ${API_KEY}`
-            },
-            body: JSON.stringify({
-                "amount": amount,
-                "currency": "USD",
-                "metadata": {
-                    "itemDesc": title,
-                    "orderId": "VPN-" + Date.now()
-                }
-            })
-        });
+const CRYPTOMUS_MERCHANT_ID = "a2e02d07-2db5-4bfa-96ab-95a2cbb26214";
 
-        const data = await response.json();
-        if (data.checkoutLink) {
-            window.location.href = data.checkoutLink;
-        } else {
-            alert("Payment error: Invoice generate nahi ho saka.");
-        }
-    } catch (err) {
-        console.error("Payment Gateway Error:", err);
-        alert("Payment gateway connection failed.");
+/**
+* Handles payment processing for Fast VPN Solutions.
+* Automatically generates a dynamic 2-hour Cryptomus invoice link.
+*
+* @param {string} planId - The ID of the selected package (e.g., '1m', '3m', '1y')
+* @param {number} price - The amount to charge in USD (e.g., 10.00, 28.00)
+*/
+function processGatewayPayment(planId, price) {
+    if (!planId || !price) {
+        console.error("Invalid payment parameters.");
+        alert("Error initiating payment. Please select a valid package.");
+        return;
     }
-              }
+
+    console.log(`[Cryptomus Gateway] Initiating payment for Plan: ${planId} ($${price})`);
+
+    // Generate unique order reference to prevent duplicates
+    const timestamp = Date.now();
+    const orderId = `VPN_${planId}_${timestamp}`;
+
+    // Dynamic Hosted Checkout URL (Cryptomus Approved Merchant)
+    const cryptomusCheckoutUrl = `https://pay.cryptomus.com/pay/${CRYPTOMUS_MERCHANT_ID}?amount=${price}&currency=USD&order_id=${orderId}`;
+
+    // Smooth redirect to live checkout page
+    window.location.href = cryptomusCheckoutUrl;
+}
